@@ -5,41 +5,33 @@
 @orangeButtonFirstColor: #FF8008;
 @orangeButtonSecColor: #FFC837;
 @backgroundColor: rgba(255, 175, 0, 0.16);
-@rightPanelWidth: 265px;
-@topPanelHeight: 65px;
-
+@rightPanelColor: white;
+@orderColor: #f0f0f0;
+@rightPanelWidth: 305px;
+@rightPanelWidthSec: 273px;
+@topPanelHeight: 75px;
+@import "pizza/pizza-card";
 *{
   box-sizing: border-box;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
-
 .btn-warning, .active{
   color: white !important;
   background-image: linear-gradient(to top left, @orangeButtonFirstColor, @orangeButtonSecColor);
 }
-
 .btn-warning:hover{
   background-image: linear-gradient(to top left, darken(@orangeButtonFirstColor, 8%), darken(@orangeButtonSecColor, 8%));
 }
-
-
-.panel{
-
-}
-
 .text(@size, @height) {
   font-size: @size;
   line-height: @height;
 }
-
 .top-panel-title(@size,@m_left){
   display: inline-block;
   font-size: @size;
   margin-left: @m_left;
   margin-top: 5px;
 }
-
-@import "pizza/pizza-card";
 
 hr{
   border: 1px dotted @discountBorderColor;
@@ -62,31 +54,84 @@ footer p{
 
 .panel{
   top:0;
+  right: 0;
   position: fixed;
 }
 
+.thumbnail{
+  margin-left: -5px;
+  min-height: 550px;
+}
+.pizza-card, .pizza-img{
+  width: 100%;
+  max-width: 300px;
+}
+.pizza-label{
+  position: absolute;
+  top: -30px;
+  right: 35px;
+
+  &.popular{
+    right: 15px;
+  }
+}
 .container-menu{
   margin-right: @rightPanelWidth;
   margin-top: @topPanelHeight;
   background-color: @backgroundColor;
 }
-
 .top-panel {
   background-color: @topPanelColor;
   z-index: 1;
   left: -5px;
   height: @topPanelHeight;
-  width: 100%;
-
+  width: calc(~'100% - 295px');
 }
-
 .right-panel{
-  top: -5px;
-  background-color: rgb(252, 255, 232);
+  position: fixed;
+  top: -1px;
+  background-color: @rightPanelColor;
   z-index: 2;
   right:0;
   height: 100%;
   width: @rightPanelWidth;
+  box-shadow: rgba(0,0,0,0.3) -5px 5px 10px;
+}
+.row{
+  margin: 0 15px !important;
+}
+.order-title{
+  background-color: white;
+  height: 100px;
+  font-size: 19px;
+  padding: 30px 12px;
+  font-weight: bold;
+
+}
+.orders{
+  position: absolute;
+  width: 100%;
+  height: calc(~'100% - 230px');
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: @orderColor;
+
+}
+.order-bill{
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  padding: 20px;
+  height: 130px;
+}
+
+.order{
+  position: relative;
+  width: 100%;
+  height: 130px;
+  border-bottom: 1px solid rgba(201, 201, 201, 0.91);
 }
 
 .badge{
@@ -99,15 +144,13 @@ footer p{
   left: 10px;
 }
 
-
-
-h1 .badge, .order .badge{
+h1 .badge, .order-title .badge{
   position: inherit;
   margin-bottom: 5px;
 }
 
 .top-badge{
-  height: 85px;
+  height: 90px;
   width: 93px;
   top:-10px;
 }
@@ -122,30 +165,24 @@ h1 .badge, .order .badge{
   background: url("../images/discount.svg") no-repeat;
   height: 21px;
 }
-
-
 .top-discount{
   width: 100px;
   background-size: 93px 21px;
   transform: scaleY(-1);
-  top: 77px;
+  top: 82px;
   left: -1px;
 }
-
-
 .bottom-discount{
   width: 80px;
   background-size: 80px 21px;
   bottom: 97px;
   left: -1px;
 }
-
 .logo{
   margin: 20px 15px;
   text-align: center;
   font-weight: 300;
 }
-
 .logo-kma{
   margin-top: -7px;
   font-size: 23px;
@@ -159,80 +196,65 @@ h1 .badge, .order .badge{
 .text{
   .text(12px,1.4);
 }
-
 .text2{
   .text(20px,1.3);
   font-weight: 200;
 }
-
 .kma{
   font-size: 22px;
   font-weight:400;
 }
-
 .top-panel-segment{
-  padding-right: @rightPanelWidth;
-  width: 85%;
+  margin-right:30px;
   height: 100%;
-  box-sizing: border-box;
   margin-left: 120px;
   color: @topPanelTextColor;
   font-weight: 400;
-  display: inline-block;
 }
-
 .seg{
-  height: 50%;
+  height: 60%;
 }
-
 .top-segment{
   border-bottom: 1px solid darkgray;
 }
-
-
 .phone-number{
-  .top-panel-title(16px,0);
+  .top-panel-title(18px,0);
 }
-
 .work-hours{
-  .top-panel-title(11px,15px);
+  .top-panel-title(13px,15px);
 }
-
 .free-delivery{
-  .top-panel-title(12px,15px);
+  .top-panel-title(16px,15px);
 }
 
 .btn-sign-in{
-  font-size: 12px;
+  font-size: 18px;
   float: right;
-  top: 30px;
-  padding: 4px 9px;
-  margin-top: 3px;
+  padding: 5px 14px;
+  margin-top:1px;
 }
-
 .pizza-href{
+  color: rgba(246, 246, 246, 0.94);
   display: inline-block;
-  margin-top: 5px;
-  font-size: medium;
+  margin-top: 2px;
+  font-size: 20px;
 }
-
 .menu-titles{
-  margin-bottom: 20px;
-  margin-left: 180px;
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 35px;
+  margin-left: 18%;
 }
-
 .menu-titles a {
-  font-size: 15px;
+  font-size: 20px;
   margin: 10px;
   color: @mainColor;
-  padding: 5px;
+  padding: 8px;
   border-radius: 5px;
 }
-
 .menu-titles a:hover{
   background-color: rgba(222, 222, 222, 0.7);
 }
-
 .type{
   color: lightslategray;
   font-size: 12px;
@@ -253,10 +275,6 @@ h1 .badge, .order .badge{
   margin-right: 15px;
 }
 
-.thumbnail{
-  height: 550px;
-  width: 280px;
-}
 
 .size, .weight{
   padding: 1px 5px;
@@ -281,17 +299,147 @@ h1 .badge, .order .badge{
   margin-top: -5px;
 }
 
-.caption p{
-  font-size: 12px;
+.pizza-description{
+  height: 40px;
+  font-size: 11px;
+  overflow-x: hidden;
 }
 
 .caption h3 {
   font-weight: bold;
   //background-color: white;
 }
+#delete-order{
+  color: lightslategrey;
+  font-size: 10px;
+  float: right;
+}
 
-.order{
-  font-size: 20px;
-  margin: 20px 10px;
+.ordered-pizza{
+  &.img {
+   // display: none;
+    position: absolute;
+    right: -48px;
+    top: 15px;
+    border-radius: 50% 0 0 50%;
+    max-height: 100px;
+    max-width: 100px;
+  }
+  &.title{
+    padding: 15px 0 7px 20px;
+    font-size: 23px;
+    color: @mainColor;
+  }
+  &.info{
+   // margin-bottom: 200px;
+    font-size: 19px;
+  }
+  &.size{
+    margin-left: 7px;
+ }
+  &.price{
+    text-align: inherit;
+    font-size: 20px;
+  }
+}
+
+.circle{
+  margin: 5px;
+  padding: 5px 15px 6px 6px;
+  border-radius: 15px;
+  height: 30px;
+  width: 30px;
+  &.plus{
+    padding-left: 9px;
+  }
+  &.minus{
+    margin-left: 12px;
+    padding-top: 4px;
+ }
+  &.remove{
+    margin-left: 8px;
+    padding-right: 6px;
+    color: orange;
+  }
+
+}
+
+.row{
+  margin: 10px;
+}
+
+.sum{
+  font-size: 16px;
   font-weight: bold;
+  margin: 10px;
+}
+
+.sum-num{
+  font-size: 19px;
+}
+
+#order-btn{
+  font-size: 18px;
+  margin-top: 15px;
+  width: 250px;
+}
+@media (max-width: 1100px) {
+  .free-delivery{
+    display: none;
+  }
+}
+@media (max-width: 790px) {
+  .btn-sign-in{
+    font-size: 14px;
+    margin-top: 3px;
+    padding: 7px 7px;
+  }
+  .work-hours{
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .right-panel{
+    width: @rightPanelWidthSec;
+  }
+  .container-menu{
+    margin-right: @rightPanelWidthSec;
+  }
+  .top-panel {
+    width: calc(~'100% - 240px');
+  }
+}
+@media (max-width: 700px) {
+  .top-panel {
+    font-size: 14px;
+  }
+  .pizza-href{
+    display: none;
+  }
+}
+@media (max-width: 570px) {
+  .phone-number{
+    font-size: 14px;
+  }
+}
+@media (max-width: 550px) {
+  .top-panel-segment{
+    height: 58%;
+  }
+}
+@media (min-width: 2500px) {
+  .thumbnail{
+    font-size: 18px;
+    height: 600px;
+  }
+  .pizza-description{
+    height: 80px;
+  }
+}
+//TODO 4500 size
+
+@media (max-width: 1500px) {
+.menu{
+  padding-right: 100px;
+ }
 }

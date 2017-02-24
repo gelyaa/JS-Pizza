@@ -171,6 +171,27 @@ var pizza_info = [
             size: 40,
             price: 299
         }
+    },
+    {
+        id:5,
+        icon:'assets/images/pizza_9.jpg',
+        title: "Верона",
+        type: 'М’ясна піца',
+        content: {
+            meat: ['куряча грудинка копчена', 'cалямi', 'шинка'],
+            cheese: ['сир моцарелла','сир едам'],
+            additional: ['петрушка', 'вершки']
+        },
+        small_size:{
+            weight: 470,
+            size: 30,
+            price: 159
+        },
+        big_size:{
+            weight: 830,
+            size: 40,
+            price: 219
+        }
     }
 ];
 
