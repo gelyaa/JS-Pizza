@@ -11,113 +11,127 @@
 @rightPanelWidthSec: 273px;
 @topPanelHeight: 75px;
 @import "pizza/pizza-card";
-*{
+* {
   box-sizing: border-box;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
-.btn-warning, .active{
+
+.btn-warning, .active {
   color: white !important;
-  background-image: linear-gradient(to top left, @orangeButtonFirstColor, @orangeButtonSecColor);
+  background-image: linear-gradient(to top left, @orangeButtonFirstColor, @orangeButtonSecColor) !important;
 }
-.btn-warning:hover{
-  background-image: linear-gradient(to top left, darken(@orangeButtonFirstColor, 8%), darken(@orangeButtonSecColor, 8%));
+
+.btn-warning:hover {
+  background-image: linear-gradient(to top left, darken(@orangeButtonFirstColor, 8%), darken(@orangeButtonSecColor, 8%)) !important;
 }
+
 .text(@size, @height) {
   font-size: @size;
   line-height: @height;
 }
-.top-panel-title(@size,@m_left){
+
+.top-panel-title(@size,@m_left) {
   display: inline-block;
   font-size: @size;
   margin-left: @m_left;
   margin-top: 5px;
 }
 
-hr{
+hr {
   border: 1px dotted @discountBorderColor;
-  margin: 5px ;
+  margin: 5px;
 }
 
-h4{
+h4 {
   margin: 2px;
 }
 
-footer{
+footer {
   padding: 20px 190px 20px 20px;
 }
 
-footer p{
+footer p {
   text-align: center;
   color: lightslategray;
   font-size: 13px;
 }
 
-.panel{
-  top:0;
+.panel {
+  top: 0;
   right: 0;
   position: fixed;
 }
 
-.thumbnail{
+.thumbnail {
   margin-left: -5px;
+  height: 100%;
   min-height: 550px;
 }
-.pizza-card, .pizza-img{
+
+.pizza-card, .pizza-img {
   width: 100%;
   max-width: 300px;
 }
-.pizza-label{
+
+.pizza-label {
   position: absolute;
   top: -30px;
   right: 35px;
 
-  &.popular{
+  &.popular {
     right: 15px;
   }
 }
-.container-menu{
+
+.container-menu {
   margin-right: @rightPanelWidth;
   margin-top: @topPanelHeight;
   background-color: @backgroundColor;
 }
+
+.panel(@color,@w,@z) {
+  background-color: @color;
+  width: @w;
+  z-index: @z;
+}
+
 .top-panel {
-  background-color: @topPanelColor;
-  z-index: 1;
+  .panel(@topPanelColor, calc(~'100% - 295px'), 1);
   left: -5px;
   height: @topPanelHeight;
-  width: calc(~'100% - 295px');
 }
-.right-panel{
+
+.right-panel {
+  .panel(@rightPanelColor, @rightPanelWidth, 2);
   position: fixed;
   top: -1px;
-  background-color: @rightPanelColor;
-  z-index: 2;
-  right:0;
+  right: 0;
   height: 100%;
-  width: @rightPanelWidth;
   box-shadow: rgba(0,0,0,0.3) -5px 5px 10px;
 }
-.row{
+
+.row {
   margin: 0 15px !important;
 }
-.order-title{
+
+.order-title {
   background-color: white;
   height: 100px;
   font-size: 19px;
   padding: 30px 12px;
   font-weight: bold;
-
 }
-.orders{
+
+.orders {
   position: absolute;
   width: 100%;
   height: calc(~'100% - 230px');
   overflow-y: auto;
   overflow-x: hidden;
   background-color: @orderColor;
-
 }
-.order-bill{
+
+.order-bill {
   width: 100%;
   background-color: white;
   position: fixed;
@@ -127,16 +141,16 @@ footer p{
   height: 130px;
 }
 
-.order{
+.order {
   position: relative;
   width: 100%;
   height: 130px;
   border-bottom: 1px solid rgba(201, 201, 201, 0.91);
 }
 
-.badge{
-  position:fixed;
-  z-index:2;
+.badge {
+  position: fixed;
+  z-index: 2;
   background-color: #ea862e;
   font-size: 20px;
   border-left: 1px solid @discountBorderColor;
@@ -144,107 +158,123 @@ footer p{
   left: 10px;
 }
 
-h1 .badge, .order-title .badge{
+h1 .badge, .order-title .badge {
   position: inherit;
   margin-bottom: 5px;
 }
 
-.top-badge{
+.top-badge {
   height: 90px;
   width: 93px;
-  top:-10px;
+  top: -10px;
 }
-.bottom-badge{
+
+.bottom-badge {
   height: 105px;
   width: 80px;
   bottom: -10px;
 }
 
-.discount{
+.discount {
   position: absolute;
   background: url("../images/discount.svg") no-repeat;
   height: 21px;
 }
-.top-discount{
+
+.top-discount {
   width: 100px;
   background-size: 93px 21px;
   transform: scaleY(-1);
   top: 82px;
   left: -1px;
 }
-.bottom-discount{
+
+.bottom-discount {
   width: 80px;
   background-size: 80px 21px;
   bottom: 97px;
   left: -1px;
 }
-.logo{
+
+.logo {
   margin: 20px 15px;
   text-align: center;
   font-weight: 300;
 }
-.logo-kma{
+
+.logo-kma {
   margin-top: -7px;
   font-size: 23px;
 }
 
-.discount-bottom-text{
+.discount-bottom-text {
   text-transform: uppercase;
   margin-top: 23px;
 }
 
-.text{
-  .text(12px,1.4);
+.text {
+  .text(12px, 1.4);
 }
-.text2{
-  .text(20px,1.3);
+
+.text2 {
+  .text(20px, 1.3);
   font-weight: 200;
 }
-.kma{
+
+.kma {
   font-size: 22px;
-  font-weight:400;
+  font-weight: 400;
 }
-.top-panel-segment{
-  margin-right:30px;
+
+.top-panel-segment {
+  margin-right: 30px;
   height: 100%;
   margin-left: 120px;
   color: @topPanelTextColor;
   font-weight: 400;
 }
-.seg{
+
+.seg {
   height: 60%;
 }
-.top-segment{
+
+.top-segment {
   border-bottom: 1px solid darkgray;
 }
-.phone-number{
-  .top-panel-title(18px,0);
-}
-.work-hours{
-  .top-panel-title(13px,15px);
-}
-.free-delivery{
-  .top-panel-title(16px,15px);
+
+.phone-number {
+  .top-panel-title(18px, 0);
 }
 
-.btn-sign-in{
+.work-hours {
+  .top-panel-title(13px, 15px);
+}
+
+.free-delivery {
+  .top-panel-title(16px, 15px);
+}
+
+.btn-sign-in {
   font-size: 18px;
   float: right;
   padding: 5px 14px;
-  margin-top:1px;
+  margin-top: 2px;
 }
-.pizza-href{
+
+.pizza-href {
   color: rgba(246, 246, 246, 0.94);
   display: inline-block;
   margin-top: 2px;
   font-size: 20px;
 }
-.menu-titles{
+
+.menu-titles {
   position: relative;
   margin-top: 15px;
   margin-bottom: 35px;
-  margin-left: 18%;
+  margin-left: 14%;
 }
+
 .menu-titles a {
   font-size: 20px;
   margin: 10px;
@@ -252,54 +282,55 @@ h1 .badge, .order-title .badge{
   padding: 8px;
   border-radius: 5px;
 }
-.menu-titles a:hover{
+
+.menu-titles a:hover {
   background-color: rgba(222, 222, 222, 0.7);
 }
-.type{
+
+.type {
   color: lightslategray;
   font-size: 12px;
   margin-bottom: 5px;
 }
 
-.big-small{
+.big-small {
   padding: 1px;
 }
 
-.small-pizza{
+.small-pizza {
   float: left;
   margin-left: 15px;
 }
 
-.big-pizza{
+.big-pizza {
   float: right;
   margin-right: 15px;
 }
 
-
-.size, .weight{
+.size, .weight {
   padding: 1px 5px;
   margin-left: 20px;
 }
 
-.buy-button{
+.buy-button {
   margin: -5px 5px 0 5px;
 }
 
-.price{
+.price {
   margin-top: 5px;
   text-align: center;
   font-weight: 700;
 }
 
-.price span{
+.price span {
   font-size: 24px;
 }
 
-.price p{
+.price p {
   margin-top: -5px;
 }
 
-.pizza-description{
+.pizza-description {
   height: 40px;
   font-size: 11px;
   overflow-x: hidden;
@@ -307,56 +338,54 @@ h1 .badge, .order-title .badge{
 
 .caption h3 {
   font-weight: bold;
-  //background-color: white;
 }
-#delete-order{
+
+#delete-order {
   color: lightslategrey;
   font-size: 10px;
   float: right;
 }
 
-.ordered-pizza{
+.ordered-pizza {
   &.img {
-   // display: none;
     position: absolute;
     right: -48px;
     top: 15px;
-    border-radius: 50% 0 0 50%;
-    max-height: 100px;
-    max-width: 100px;
+    border-radius: 50%;
+    max-height: 95px;
+    max-width: 95px;
   }
-  &.title{
+  &.title {
     padding: 15px 0 7px 20px;
     font-size: 23px;
     color: @mainColor;
   }
-  &.info{
-   // margin-bottom: 200px;
+  &.info {
     font-size: 19px;
   }
-  &.size{
+  &.size {
     margin-left: 7px;
- }
-  &.price{
+  }
+  &.price {
     text-align: inherit;
     font-size: 20px;
   }
 }
 
-.circle{
+.circle {
   margin: 5px;
   padding: 5px 15px 6px 6px;
   border-radius: 15px;
   height: 30px;
   width: 30px;
-  &.plus{
+  &.plus {
     padding-left: 9px;
   }
-  &.minus{
+  &.minus {
     margin-left: 12px;
     padding-top: 4px;
- }
-  &.remove{
+  }
+  &.remove {
     margin-left: 8px;
     padding-right: 6px;
     color: orange;
@@ -364,82 +393,139 @@ h1 .badge, .order-title .badge{
 
 }
 
-.row{
+.row {
   margin: 10px;
 }
 
-.sum{
+.sum {
   font-size: 16px;
   font-weight: bold;
   margin: 10px;
 }
 
-.sum-num{
+.sum-num {
   font-size: 19px;
 }
 
-#order-btn{
+#order-btn {
   font-size: 18px;
   margin-top: 15px;
   width: 250px;
 }
+
 @media (max-width: 1100px) {
-  .free-delivery{
+  .free-delivery {
     display: none;
   }
 }
+
 @media (max-width: 790px) {
-  .btn-sign-in{
+  .btn-sign-in {
     font-size: 14px;
     margin-top: 3px;
     padding: 7px 7px;
   }
-  .work-hours{
+
+  .work-hours {
+    display: none;
+  }
+  .thumbnail,.pizza-card{
+    margin-left: 0 !important;
+  }
+
+  .top-panel {
+    font-size: 14px;
+  }
+
+  .pizza-href {
     display: none;
   }
 }
+
 @media (max-width: 900px) {
-  .right-panel{
+  .right-panel {
     width: @rightPanelWidthSec;
   }
-  .container-menu{
+  .container-menu {
     margin-right: @rightPanelWidthSec;
   }
   .top-panel {
     width: calc(~'100% - 240px');
   }
+
 }
+@media(max-width: 1050px){
+  .thumbnail {
+    margin-left: 70px !important;
+  }
+  .menu-titles{
+    margin-right: 45px !important;
+    margin-left: 80px !important;
+  }
+}
+
 @media (max-width: 700px) {
   .top-panel {
     font-size: 14px;
   }
-  .pizza-href{
+
+  .pizza-href {
     display: none;
   }
+
 }
+
 @media (max-width: 570px) {
-  .phone-number{
+  .phone-number {
     font-size: 14px;
   }
 }
+
 @media (max-width: 550px) {
-  .top-panel-segment{
+  .top-panel-segment {
     height: 58%;
   }
 }
+
+
+@media (max-width: 700px) {
+  .pizza-card{
+    width: 260px !important;
+  }
+  .menu {
+    margin-left: -50px;
+  }
+  .menu-titles{
+    margin-left: 80px;
+  }
+}
+
+
 @media (min-width: 2500px) {
-  .thumbnail{
+  .thumbnail {
     font-size: 18px;
     height: 600px;
   }
-  .pizza-description{
+
+  .pizza-description {
     height: 80px;
   }
 }
-//TODO 4500 size
 
 @media (max-width: 1500px) {
-.menu{
-  padding-right: 100px;
- }
+  .menu {
+    padding-right: 50px;
+  }
+}
+
+@media (max-width: 1450px) {
+  .menu {
+    padding-right: 100px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .menu {
+    padding-right: 270px;
+  }
 }
