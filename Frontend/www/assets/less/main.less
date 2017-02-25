@@ -76,9 +76,10 @@ footer p {
 .pizza-label {
   position: absolute;
   top: -30px;
-  right: 35px;
+  right: 30px;
+  z-index: 1;
 
-  &.popular {
+  &.label-long {
     right: 15px;
   }
 }
@@ -96,13 +97,13 @@ footer p {
 }
 
 .top-panel {
-  .panel(@topPanelColor, calc(~'100% - 295px'), 1);
+  .panel(@topPanelColor, calc(~'100% - 295px'), 2);
   left: -5px;
   height: @topPanelHeight;
 }
 
 .right-panel {
-  .panel(@rightPanelColor, @rightPanelWidth, 2);
+  .panel(@rightPanelColor, @rightPanelWidth, 3);
   position: fixed;
   top: -1px;
   right: 0;
@@ -473,6 +474,10 @@ h1 .badge, .order-title .badge {
     display: none;
   }
 
+  .pizza-label{
+    left: 290px;
+  }
+
 }
 
 @media (max-width: 570px) {
@@ -549,6 +554,10 @@ h1 .badge, .order-title .badge {
 @media (max-width: 1450px) {
   .menu {
     padding-right: 150px;
+  }
+
+  .short-label{
+    right: 20px;
   }
 }
 
