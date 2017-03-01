@@ -150,7 +150,8 @@ var pizza_info = [
             weight: 845,
             size: 40,
             price: 399
-        }
+        },
+        no_small_size: true
     },
     {
         id:6,

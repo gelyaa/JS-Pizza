@@ -432,9 +432,6 @@ h1 .badge, .order-title .badge {
   .work-hours {
     display: none;
   }
-  .thumbnail,.pizza-card{
-    margin-left: 0 !important;
-  }
 
   .top-panel {
     font-size: 14px;
@@ -467,7 +464,7 @@ h1 .badge, .order-title .badge {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
   .top-panel {
     font-size: 14px;
   }
@@ -500,8 +497,7 @@ h1 .badge, .order-title .badge {
   }
 }
 
-
-@media (max-width: 700px) {
+@media (max-width: 850px) {
   .pizza-card{
     width: 260px !important;
   }
@@ -573,5 +569,12 @@ h1 .badge, .order-title .badge {
 }
 
 .no-big-small{
-  margin-left: 80px;
+  position: relative;
+  margin-left: 28% !important;
+  .big-pizza, .small-pizza{
+    float:none;
+    .price{
+      margin-left: -45%;
+    }
+  }
 }

@@ -43,7 +43,7 @@ function getIngredientsArray(pizza) {
             </p>
 
 
-            <% if(!pizza.no_big_size) { %>
+            <% if((!pizza.no_big_size)&&(!pizza.no_small_size)) { %>
 
             <div class="big-small">
 
@@ -83,6 +83,31 @@ function getIngredientsArray(pizza) {
                     </div>
 
                 </div>
+
+                <% } else  if(pizza.no_small_size){%>
+
+                <div class="no-big-small">
+
+                <div class="big-pizza">
+
+                    <span class="size">  <img src="assets/images/size-icon.svg">  <%= pizza.big_size.size %> </span>
+                    <br>
+                    <span class="weight"> <img src="assets/images/weight.svg">  <%= pizza.big_size.weight %> </span>
+                    <br>
+
+                    <div class="price">
+                        <span> <%= pizza.big_size.price %> </span>
+                        <br>
+                        <p> грн. </p>
+
+                        <a href="#" class="btn btn-warning buy-button buy-big">Купити</a>
+
+                    </div>
+
+                </div>
+
+                </div>
+
 
                 <% } else{%>
 
