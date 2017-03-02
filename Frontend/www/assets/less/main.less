@@ -21,7 +21,7 @@
   background-image: linear-gradient(to top left, @orangeButtonFirstColor, @orangeButtonSecColor) !important;
 }
 
-.btn-warning:hover {
+.btn-warning:hover:enabled{
   background-image: linear-gradient(to top left, darken(@orangeButtonFirstColor, 8%), darken(@orangeButtonSecColor, 8%)) !important;
 }
 
@@ -359,8 +359,8 @@ h1 .badge, .order-title .badge {
     max-width: 95px;
   }
   &.title {
-    padding: 15px 0 7px 20px;
-    font-size: 23px;
+    padding: 15px 0 7px 10px;
+    font-size: 20px;
     color: @mainColor;
   }
   &.info {
@@ -577,4 +577,36 @@ h1 .badge, .order-title .badge {
       margin-left: -45%;
     }
   }
+
+}
+
+#total-sum{
+  margin-right: -10px;
+}
+
+.no-orders{
+  .sum{
+   display: none;
+  }
+  .order-bill{
+    opacity: 0.8;
+    height: 90px ;
+    padding-top: 12px;
+  }
+  .no-orders-title {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+  }
+  .empty-fridge{
+    display: block;
+    margin-top: 35px;
+  }
+  .orders {
+    height: calc(~'100% - 190px');
+  }
+}
+
+.empty-fridge{
+  display: none;
 }

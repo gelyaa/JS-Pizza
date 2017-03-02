@@ -80,26 +80,29 @@
 </div>
 
 
-<div class=" panel right-panel ">
+<div class=" panel right-panel no-orders">
 
     <div class="right-title">
 
-        <div class="order-title"> Замовлення <span class="badge "> 8 </span>
+        <div class="order-title"> Замовлення <span id="order-quantity" class="badge "> 0 </span>
             <a href="#" class="btn btn-link" id="delete-order">Очистити замовлення</a>
         </div>
     </div>
 
     <div class=" order-bill">
         <span class="sum">Сума замовлення</span>
-        <span class="sum sum-num">3000 грн.</span>
-        <a href="#" class="btn btn-warning btn-block" id="order-btn">Замовити</a>
+        <span id="total-sum" class="sum sum-num"> 0 </span>
+        <span class="sum sum-num"> грн.</span>
+        <button class="btn btn-warning btn-block" id="order-btn" disabled>Замовити</button>
     </div>
 
-    <div id = "orders-list" class="orders ">
-
-
+    <div class="orders ">
+        <div class="empty-fridge">
+        <div class="no-orders-title"> Пусто в холодильнику ? </div>
+        <div class="no-orders-title"> Замовте піцу! </div>
     </div>
-
+        <div id="orders-list"></div>
+    </div>
 
 </div>
 
