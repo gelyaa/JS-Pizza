@@ -73,8 +73,8 @@ $("#meat-pizzas").click(function () {
     setActive(this);
     filterPizza('meat');
 });
-$("#all-pizzas").click(function () {
-    setActive(this);
+$("#all-pizzas,.pizza-href").click(function () {
+    setActive("#all-pizzas");
     $quantity.text(9);
     initialiseMenu();
 });

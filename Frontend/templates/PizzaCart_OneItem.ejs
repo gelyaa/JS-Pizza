@@ -1,32 +1,39 @@
-
 <div class="order">
     <div class="ordered-pizza title">  <%= pizza.title %>
         <% if(size == 'big_size' ) { %>
         (Велика)
         <% } else if(size == 'small_size' ) { %>
         (Мала)
-        <%  } %>
+        <% } %>
     </div>
 
     <span class="ordered-pizza size">  <img src="assets/images/size-icon.svg">  40 </span>
     <span class="ordered-pizza weight"> <img src="assets/images/weight.svg">  660 </span>
 
     <div class="row">
+        <span class="ordered-pizza price"> <%= pizza[size].price %> грн. </span>
+        <span class="edit-tools">
+            <button class="btn btn-danger circle minus">
+                <i class="glyphicon glyphicon-minus "> </i>
+            </button>
+            <span class="ordered-pizza price"> <%= quantity %> </span>
+            <button class=" btn btn-xs btn-success circle plus">
+                <i class="glyphicon glyphicon-plus "> </i>
+            </button>
 
-        <span class="ordered-pizza price"> <%= pizza[size].price %> </span>
+            <button class="remove btn btn-default circle">
+                <i class="glyphicon glyphicon-remove "> </i>
+            </button>
+        </span>
 
-        <button class="btn btn-danger circle minus">
-            <i class="glyphicon glyphicon-minus "> </i>
-        </button>
-        <span class="ordered-pizza price"> <%= quantity %> </span>
-        <button class=" btn btn-xs btn-success circle plus">
-            <i class="glyphicon glyphicon-plus "> </i>
-        </button>
-
-        <button class="remove btn btn-default circle">
-            <i class="glyphicon glyphicon-remove "> </i>
-        </button>
-
+        <span class="final-quantity">
+            <span id="final-quantity" class="ordered-pizza price">
+                <%= quantity %>
+                <% if(quantity % 10 === 1) { %> пiца
+                <% } else if (quantity % 10 <= 4) { %> пiци
+                <% } else { %> пiц <% } %>
+            </span>
+        </span>
     </div>
 
     <img class="ordered-pizza img" src="<%= pizza.icon %>" alt="Pizza">
