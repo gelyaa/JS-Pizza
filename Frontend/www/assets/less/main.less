@@ -3,8 +3,8 @@
 @topPanelTextColor: #b8b8b8;
 @discountBorderColor: #d16200;
 @orangeButtonFirstColor: #FF8008;
-@orangeButtonSecColor: #FFC837;
-@backgroundColor: rgba(255, 175, 0, 0.16);
+@orangeButtonSecColor: #ffc837;
+@backgroundColor: rgba(255, 114, 15, 0.16);
 @rightPanelColor: white;
 @orderColor: #f0f0f0;
 @rightPanelWidth: 305px;
@@ -21,7 +21,7 @@
   background-image: linear-gradient(to top left, @orangeButtonFirstColor, @orangeButtonSecColor) !important;
 }
 
-.btn-warning:hover:enabled{
+.btn-warning:hover:enabled {
   background-image: linear-gradient(to top left, darken(@orangeButtonFirstColor, 8%), darken(@orangeButtonSecColor, 8%)) !important;
 }
 
@@ -48,6 +48,10 @@ h4 {
 
 footer {
   padding: 20px 190px 20px 20px;
+}
+
+button:focus {
+  outline: none !important;
 }
 
 footer p {
@@ -446,19 +450,23 @@ h1 .badge, .order-title .badge {
   .right-panel {
     width: @rightPanelWidthSec;
   }
+
   .container-menu {
     margin-right: @rightPanelWidthSec;
   }
+
   .top-panel {
     width: calc(~'100% - 240px');
   }
 
 }
-@media(max-width: 990px){
+
+@media (max-width: 990px) {
   .thumbnail {
     margin-left: 70px !important;
   }
-  .menu-titles{
+
+  .menu-titles {
     margin-right: 45px !important;
     margin-left: 80px !important;
   }
@@ -473,7 +481,7 @@ h1 .badge, .order-title .badge {
     display: none;
   }
 
-  .pizza-label{
+  .pizza-label {
     left: 290px;
   }
 
@@ -489,31 +497,35 @@ h1 .badge, .order-title .badge {
   .top-panel-segment {
     height: 62%;
   }
-  .top-panel{
+
+  .top-panel {
     height: @topPanelHeight + 15px;
   }
-  .phone-number{
+
+  .phone-number {
     font-size: 10px;
   }
 }
 
 @media (max-width: 850px) {
-  .pizza-card{
+  .pizza-card {
     width: 260px !important;
   }
+
   .menu {
     margin-left: -50px;
   }
+
   .menu-titles {
     margin-left: 140px !important;
   }
-  .main-title{
+
+  .main-title {
     font-size: 27px;
-    margin-left: 150px ;
+    margin-left: 150px;
   }
 
 }
-
 
 @media (min-width: 2500px) {
   .thumbnail {
@@ -526,25 +538,28 @@ h1 .badge, .order-title .badge {
   }
 }
 
-@media(min-width: 4500px){
+@media (min-width: 4500px) {
   .pizza-description {
     height: 200px;
   }
-  .small-pizza, .big-pizza{
+
+  .small-pizza, .big-pizza {
     margin: auto;
   }
-  .pizza-card{
+
+  .pizza-card {
     height: 800px;
   }
-  .buy-button{
+
+  .buy-button {
     margin-top: 15px;
   }
-  .menu-titles{
+
+  .menu-titles {
     margin-left: 8%;
   }
 
 }
-
 
 @media (max-width: 1500px) {
   .menu {
@@ -557,8 +572,8 @@ h1 .badge, .order-title .badge {
     padding-right: 150px;
   }
 
-  .short-label{
-    right: 20px;
+  .short-label {
+    right: 17px;
   }
 }
 
@@ -568,29 +583,29 @@ h1 .badge, .order-title .badge {
   }
 }
 
-.no-big-small{
+.no-big-small {
   position: relative;
   margin-left: 28% !important;
-  .big-pizza, .small-pizza{
-    float:none;
-    .price{
+  .big-pizza, .small-pizza {
+    float: none;
+    .price {
       margin-left: -45%;
     }
   }
 
 }
 
-#total-sum{
+#total-sum {
   margin-right: -10px;
 }
 
-.no-orders{
-  .sum{
-   display: none;
+.no-orders {
+  .sum {
+    display: none;
   }
-  .order-bill{
+  .order-bill {
     opacity: 0.8;
-    height: 90px ;
+    height: 90px;
     padding-top: 12px;
   }
   .no-orders-title {
@@ -598,7 +613,7 @@ h1 .badge, .order-title .badge {
     font-weight: normal;
     text-align: center;
   }
-  .empty-fridge{
+  .empty-fridge {
     display: block;
     margin-top: 35px;
   }
@@ -607,6 +622,6 @@ h1 .badge, .order-title .badge {
   }
 }
 
-.empty-fridge{
+.empty-fridge {
   display: none;
 }

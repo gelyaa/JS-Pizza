@@ -2,6 +2,7 @@
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
+var Storage	= require('./LocalStorage/storage');
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -24,24 +25,23 @@ var order_quantity = $("#order-quantity");
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
     //Приклад реалізації, можна робити будь-яким іншим способом
-    var exist = false;//TODO
+
+    var t = 1;
     Cart.forEach(function(p){
         if(p.pizza === pizza && p.size === size) {
-            p.quantity += 1;
-            exist = true;
+            t += p.quantity;
+            removeFromCart(p);
         }
     });
-    if(!exist) {
         Cart.unshift({
             pizza: pizza,
             size: size,
-            quantity: 1
+            quantity: t
         });
         updateOrderQuantity(true);
         if (parseInt(order_quantity.html()) == 1) ordersMode();
-    }
 
-       updateTotalPrice(pizza[size].price);
+       updateTotalPrice(pizza[size].price*t);
        //Оновити вміст кошика на сторінці
        updateCart();
 
@@ -68,8 +68,16 @@ function removeFromCart(cart_item) {
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
-
+    var saved_orders = Storage.get('cart');
+    if(saved_orders) {
+        var n = Storage.get('saved_quantity');
+        if( n > 0){
+            Cart = saved_orders;
+            order_quantity.text(n);
+            total.text(Storage.get('saved_total'));
+            ordersMode();
+        }
+    }
     updateCart();
 }
 
@@ -131,6 +139,9 @@ function updateCart() {
         $cart.append($node);
     }
 
+    Storage.set("cart",	Cart);
+    Storage.set( "saved_quantity", parseInt(order_quantity.html()) );
+    Storage.set("saved_total",	parseInt(total.html()) );
     Cart.forEach(showOnePizzaInCart);
 
 }
