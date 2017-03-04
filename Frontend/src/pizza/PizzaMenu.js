@@ -8,6 +8,8 @@ var Pizza_List = require('../Pizza_List');
 //HTML едемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
 
+var $quantity = $("#quantity");
+
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
     $pizza_list.html("");
@@ -36,14 +38,17 @@ function filterPizza(filter) {
 
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
-
+    var count = 0;
     Pizza_List.forEach(function (pizza) {
         //Якщо піца відповідає фільтру
         if (pizza.filter.forEach(function (c) {
-                if (c == filter) pizza_shown.push(pizza);
+                if (c == filter) {
+                    pizza_shown.push(pizza);
+                    count++;
+                }
             }));
     });
-
+    $quantity.text(count);
     //Показати відфільтровані піци
     showPizzaList(pizza_shown);
 }
@@ -70,7 +75,8 @@ $("#meat-pizzas").click(function () {
 });
 $("#all-pizzas").click(function () {
     setActive(this);
-
+    $quantity.text(9);
+    initialiseMenu();
 });
 
 function setActive(id) {
