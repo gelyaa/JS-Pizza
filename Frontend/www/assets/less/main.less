@@ -6,7 +6,7 @@
 @orangeBtnSecColor: #ffc837;
 @grayBtnFirstColor: rgb(253, 250, 250);
 @grayBtnSecColor: rgb(245, 244, 247);
-@backgroundColor: rgba(255, 123, 60, 0.17);
+@backgroundColor: rgba(255, 123, 60, 0.13);
 @rightPanelColor: white;
 @orderColor: #f0f0f0;
 @rightPanelWidth: 305px;
@@ -20,11 +20,11 @@
 
 .btn-warning, .active {
   color: white !important;
-  background-image: linear-gradient(to top left, @orangeBtnFirstColor, @orangeBtnSecColor) !important ;
+  background-image: linear-gradient(to top left, @orangeBtnFirstColor, @orangeBtnSecColor) !important;
 }
 
 .btn-warning:hover:enabled {
-  background-image: linear-gradient(to top left, darken(@orangeBtnFirstColor, 5%), darken(@orangeBtnSecColor, 5%)) !important ;
+  background-image: linear-gradient(to top left, darken(@orangeBtnFirstColor, 5%), darken(@orangeBtnSecColor, 5%)) !important;
 }
 
 .text(@size, @height) {
@@ -88,6 +88,16 @@ footer p {
   &.label-long {
     right: 15px;
   }
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.container-form {
+  height: 90%;
 }
 
 .container-menu {
@@ -633,30 +643,80 @@ h1 .badge, .order-title .badge {
 .edit-tools {
   display: inline-block;
 }
-#final-quantity{
+
+#final-quantity {
   display: none;
 }
-.sum-order-title{
+
+.sum-order-title {
   margin-left: 0 !important;
 }
 
 .buy-mode {
-  .edit-tools,#delete-order {
+  .edit-tools, #delete-order {
     display: none;
   }
-  #final-quantity{
+  #final-quantity {
     display: inline-block;
     margin-left: 15px;
     font-size: 18px;
   }
-  #order-btn{
+  #order-btn {
     font-size: 20px;
     border-color: lightgray;
     color: black !important;
-    background-image: linear-gradient(to top left, @grayBtnFirstColor, @grayBtnSecColor) ;
+    background-image: linear-gradient(to top left, @grayBtnFirstColor, @grayBtnSecColor) !important;
   }
   #order-btn:hover {
-    background-image: linear-gradient(to top left, darken(@grayBtnFirstColor, 5%), darken(@grayBtnSecColor, 5%)) ;
+    background-image: linear-gradient(to top left, darken(@grayBtnFirstColor, 3%), darken(@grayBtnSecColor, 3%)) !important;
   }
 
+}
+
+.form {
+  min-width: 500px;
+  margin: 15px 20px;
+  padding: 70px 25px 70px 10px;
+}
+
+.extra-info{
+  margin-top: 0 !important;
+}
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.bs-callout-success {
+  border-left-color: #5cb85c;
+}
+
+.bs-callout-success h4 {
+  color: #5cb85c;
+}
+
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+
+.order-info{
+  margin: 10px 0;
+}
+
+.btn-next{
+  float: right;
+  width: 100px;
 }
