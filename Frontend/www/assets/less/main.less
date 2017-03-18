@@ -96,9 +96,6 @@ html, body {
   margin: 0;
 }
 
-.container-form {
-  height: 90%;
-}
 
 .container-menu {
   margin-right: @rightPanelWidth;
@@ -428,7 +425,7 @@ h1 .badge, .order-title .badge {
   font-size: 19px;
 }
 
-#order-btn {
+#order-btn,#edit-btn {
   font-size: 18px;
   margin-top: 15px;
   width: 250px;
@@ -653,7 +650,7 @@ h1 .badge, .order-title .badge {
 }
 
 .buy-mode {
-  .edit-tools, #delete-order {
+  .edit-tools {
     display: none;
   }
   #final-quantity {
@@ -661,7 +658,7 @@ h1 .badge, .order-title .badge {
     margin-left: 15px;
     font-size: 18px;
   }
-  #order-btn {
+  #edit-btn {
     font-size: 20px;
     border-color: lightgray;
     color: black !important;
@@ -677,6 +674,15 @@ h1 .badge, .order-title .badge {
   min-width: 500px;
   margin: 15px 20px;
   padding: 70px 25px 70px 10px;
+}
+
+.form-control{
+  margin-left: 10px;
+}
+@media (max-width: 720px) {
+  .form-control {
+    width: 340px;
+  }
 }
 
 .extra-info{
@@ -720,3 +726,37 @@ h1 .badge, .order-title .badge {
   float: right;
   width: 100px;
 }
+
+.error-message{
+  color: #b2121a;
+  margin-left: 15px;
+}
+
+.form-group{
+  &.has-error{
+    label{
+      color: #b2121a;
+    }
+  }
+  &.has-success{
+    label{
+      color: #39b233;
+    }
+  }
+}
+
+#googleMap{
+  margin-top: 240px;
+}
+
+@media (max-width: 1000px) {
+  #googleMap {
+    margin-top: 100px;
+  }
+}
+
+#submit-btn{
+  margin-right: 15px;
+}
+
+//TODO scale 200 отступ нужен scale 125 отступ большой

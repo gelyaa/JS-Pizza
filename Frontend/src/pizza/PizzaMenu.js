@@ -5,7 +5,7 @@ var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
 var Pizza_List = require('../Pizza_List');
 
-//HTML едемент куди будуть додаватися піци
+//HTML елемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
 
 var $quantity = $("#quantity");
@@ -89,6 +89,73 @@ function setActive(id) {
 function initialiseMenu() {
     //Показуємо усі піци
     showPizzaList(Pizza_List)
+}
+
+$("#order-btn").click(function () {
+    document.location.href = "order.html";
+});
+
+$("#edit-btn").click(function () {
+    document.location.href = "index.html";
+
+});
+
+$("#submit-btn").click(function () {
+    validateName($('#name'));
+    validatePhone($('#phone'));
+    validateAddress($('#address'));
+});
+
+$('#name').keyup(function () {
+    validateName($(this));
+});
+
+$('#address').keyup(function () {
+    validateAddress($(this));
+});
+
+$('#phone').keyup(function () {
+    validatePhone($(this));
+});
+
+function validateName(input) {
+    var text = input.val();
+    if (text.length < 2 || !(/^[a-zA-Z]+$/.test(text))) {
+        input.closest('.form-group').addClass('has-error');
+        input.closest('.form-group').removeClass('has-success');
+        $('#name-error').show();
+    } else {
+        input.closest('.form-group').addClass('has-success');
+        input.closest('.form-group').removeClass('has-error');
+        $('#name-error').hide();
+    }
+}
+
+function validateAddress(input) {
+    var text = input.val();
+    if (text.length < 3) {
+        input.closest('.form-group').addClass('has-error');
+        input.closest('.form-group').removeClass('has-success');
+        $('#ad-error').show();
+    } else {
+        input.closest('.form-group').addClass('has-success');
+        input.closest('.form-group').removeClass('has-error');
+        $('#ad-error').hide();
+    }
+}
+
+
+function validatePhone(input) {
+    var text = input.val();
+    if (!( text.charAt(0) == 0 && text.length == 10) && !( text.substring(0, 4) == '+380' && text.length == 12)) {
+        input.closest('.form-group').addClass('has-error');
+        input.closest('.form-group').removeClass('has-success');
+        $('#ph-error').show();
+    } else {
+        input.closest('.form-group').addClass('has-success');
+        input.closest('.form-group').removeClass('has-error');
+        $('#ph-error').hide();
+    }
 }
 
 exports.filterPizza = filterPizza;
