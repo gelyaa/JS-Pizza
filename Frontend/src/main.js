@@ -7,8 +7,10 @@ $(function(){
     var PizzaMenu = require('./pizza/PizzaMenu');
     var PizzaCart = require('./pizza/PizzaCart');
     var Pizza_List = require('./Pizza_List');
+    var MapBank = require('./pizza/MapBank');
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
+    MapBank.initialize();
 
 });

@@ -220,7 +220,7 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\n\nfunction getIngredientsArray(pizz
 
 exports.PizzaCart_OneItem = ejs.compile("<div class=\"order\">\n    <div class=\"ordered-pizza title\">  <%= pizza.title %>\n        <% if(size == 'big_size' ) { %>\n        (Велика)\n        <% } else if(size == 'small_size' ) { %>\n        (Мала)\n        <% } %>\n    </div>\n\n    <span class=\"ordered-pizza size\">  <img src=\"assets/images/size-icon.svg\">  40 </span>\n    <span class=\"ordered-pizza weight\"> <img src=\"assets/images/weight.svg\">  660 </span>\n\n    <div class=\"row\">\n        <span class=\"ordered-pizza price\"> <%= pizza[size].price %> грн. </span>\n        <span class=\"edit-tools\">\n            <button class=\"btn btn-danger circle minus\">\n                <i class=\"glyphicon glyphicon-minus \"> </i>\n            </button>\n            <span class=\"ordered-pizza price\"> <%= quantity %> </span>\n            <button class=\" btn btn-xs btn-success circle plus\">\n                <i class=\"glyphicon glyphicon-plus \"> </i>\n            </button>\n\n            <button class=\"remove btn btn-default circle\">\n                <i class=\"glyphicon glyphicon-remove \"> </i>\n            </button>\n        </span>\n\n        <span class=\"final-quantity\">\n            <span id=\"final-quantity\" class=\"ordered-pizza price\">\n                <%= quantity %>\n                <% if(quantity % 10 === 1) { %> пiца\n                <% } else if (quantity % 10 <= 4) { %> пiци\n                <% } else { %> пiц <% } %>\n            </span>\n        </span>\n    </div>\n\n    <img class=\"ordered-pizza img\" src=\"<%= pizza.icon %>\" alt=\"Pizza\">\n</div>=");
 
-},{"ejs":9}],3:[function(require,module,exports){
+},{"ejs":10}],3:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -230,12 +230,14 @@ $(function(){
     var PizzaMenu = require('./pizza/PizzaMenu');
     var PizzaCart = require('./pizza/PizzaCart');
     var Pizza_List = require('./Pizza_List');
+    var MapBank = require('./pizza/MapBank');
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
+    MapBank.initialize();
 
 });
-},{"./Pizza_List":1,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],4:[function(require,module,exports){
+},{"./Pizza_List":1,"./pizza/MapBank":5,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],4:[function(require,module,exports){
 /**
  * Created by macuser on 04.03.17.
  */
@@ -248,7 +250,115 @@ exports.get =	function(key)	{
 exports.set =	function(key,	value)	{
     return	basil.set(key,	value);
 };
-},{"basil.js":7}],5:[function(require,module,exports){
+},{"basil.js":8}],5:[function(require,module,exports){
+function initialize() {
+    var mapProp = {
+        center: new google.maps.LatLng(50.464379, 30.519131),
+        zoom: 11
+    };
+    var html_element = document.getElementById("googleMap");
+    var map = new google.maps.Map(html_element, mapProp);
+
+    var point = new google.maps.LatLng(50.464379, 30.519131);
+    var marker = new google.maps.Marker({
+        position: point,
+        map: map,
+        icon: "assets/images/map-icon.png"
+    });
+
+    var home_marker = new google.maps.Marker({
+        map: map,
+        icon: "assets/images/home-icon.png"
+    });
+
+    var directionDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    directionDisplay.setMap(map);
+
+    google.maps.event.addListener(map, 'click', function (me) {
+        var coordinates = me.latLng;
+        geocodeLatLng(coordinates, function (err, address) {
+            if (!err) {
+                $('#address-info').text(address);
+                $('#address').val(address);
+                home_marker.setPosition(coordinates);
+            }
+            else {
+                $('#address-info').text("Немає адреси");
+                $('#address').val("Немає адреси");
+            }
+        })
+        calculateRoute(point, coordinates, directionDisplay,  function (err, duration) {
+            if (err) {
+                $('#time-info').text("Немає адреси");
+            }
+        })
+
+    });
+
+    $('#address').bind('input', function () {
+        var address = $(this).val();
+        if (address.length > 2) {
+            geocodeAddress(address, function (err, coordinates) {
+                if (!err) {
+                    $('#address-info').text(address);
+                    map.setCenter(coordinates);
+                    home_marker.setPosition(coordinates);
+                }
+                else console.log("Немає адреси");
+            })
+        }
+
+
+    });
+
+}
+
+function geocodeLatLng(latlng, callback) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'location': latlng}, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK && results[1]) {
+            var adress = results[1].formatted_address;
+            callback(null, adress);
+        } else {
+            callback(new Error("Can't find adress"));
+        }
+    });
+}
+
+function geocodeAddress(address, callback) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': address}, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK && results[0]) {
+            var coordinates = results[0].geometry.location;
+            callback(null, coordinates);
+        } else {
+            callback(new Error("Can't find the adress"));
+        }
+    });
+}
+function calculateRoute(A_latlng, B_latlng, directionDisplay, callback) {
+    var directionService = new google.maps.DirectionsService();
+    directionService.route({
+        origin: A_latlng,
+        destination: B_latlng,
+        travelMode: google.maps.TravelMode["DRIVING"]
+    }, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionDisplay.setDirections(response);
+            var leg = response.routes[0].legs[0];
+            $("#time-info").text(leg.duration.text);
+            callback(null);
+        } else {
+            callback(new Error("Can'not	find direction"));
+        }
+    });
+}
+
+// google.maps.event.addDomListener(window, 'load', initialize);
+exports.initialize = initialize;
+
+
+},{}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -414,7 +524,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Templates":2,"./LocalStorage/storage":4}],6:[function(require,module,exports){
+},{"../Templates":2,"./LocalStorage/storage":4}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -577,7 +687,7 @@ function validatePhone(input) {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":1,"../Templates":2,"./PizzaCart":5}],7:[function(require,module,exports){
+},{"../Pizza_List":1,"../Templates":2,"./PizzaCart":6}],8:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -965,9 +1075,9 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],8:[function(require,module,exports){
-
 },{}],9:[function(require,module,exports){
+
+},{}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1810,7 +1920,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":8,"path":12}],10:[function(require,module,exports){
+},{"../package.json":12,"./utils":11,"fs":9,"path":13}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1976,7 +2086,7 @@ exports.cache = {
   }
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -2091,7 +2201,7 @@ module.exports={
   "version": "2.5.6"
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2319,7 +2429,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":13}],13:[function(require,module,exports){
+},{"_process":14}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
