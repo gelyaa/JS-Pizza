@@ -33,7 +33,7 @@ function initialize() {
                 $('#address-info').text("Немає адреси");
                 $('#address').val("Немає адреси");
             }
-        })
+        });
         calculateRoute(point, coordinates, directionDisplay,  function (err, duration) {
             if (err) {
                 $('#time-info').text("Немає адреси");
@@ -50,6 +50,11 @@ function initialize() {
                     $('#address-info').text(address);
                     map.setCenter(coordinates);
                     home_marker.setPosition(coordinates);
+                    calculateRoute(point, coordinates, directionDisplay,  function (err, duration) {
+                        if (err) {
+                            $('#time-info').text("Немає адреси");
+                        }
+                    })
                 }
                 else console.log("Немає адреси");
             })
