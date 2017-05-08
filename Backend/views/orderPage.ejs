@@ -7,17 +7,16 @@
             <div class="row">
                 <form class="form-horizontal" id="contact-forms">
                     <div class="col-md-7 contact-form">
-                        <div class="form-group control-group">
+                        <div id="name-form" class="form-group control-group">
                             <label class="col-sm-2 label-form"> Ім’я </label>
                             <div class="col-sm-10">
                                 <input class="form-control" name="form-name" id="name" type="text"
                                        placeholder="Имя Фамилия">
-                                <div class="error-message" id="name-error" style="display:none;"> Введiть Ваше iм'я
-                                    кирилицeю (мiн. кiль-ть символiв: 2)
+                                <div class="error-message" id="name-error" style="display:none;"> Введіть тільки власне ім’я, без цифр (мiн. кiль-ть симв.: 2)
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group control-group">
+                        <div id="phone-form" class="form-group control-group">
                             <label class="col-sm-2 label-form"> Телефон </label>
                             <div class="col-sm-10">
                                 <input class="form-control" name="form-phone" id="phone" type="text"
@@ -28,7 +27,7 @@
                             </div>
 
                         </div>
-                        <div class="form-group control-group">
+                        <div id="address-form" class="form-group control-group">
                             <label class="col-sm-2 label-form"> Адреса </label>
                             <div class="col-sm-10">
                                 <input class="form-control" name="form-address" id="address" type="text"
@@ -81,5 +80,10 @@
     </div>
 
 </div>
+
+<!-- місце для віджету -->
+<div id="liqpay"></div>
+<!-- піключаємо скрипт -->
+<script src="//static.liqpay.com/libjs/checkout.js"> </script>
 
 <% include common/footer.ejs %>

@@ -4,6 +4,7 @@
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
 var Pizza_List = require('../Pizza_List');
+var Api = require('../API');
 
 //HTML елемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
@@ -104,6 +105,27 @@ $("#submit-btn").click(function () {
     validateName($('#name'));
     validatePhone($('#phone'));
     validateAddress($('#address'));
+    if (isOk()) {
+        Api.createOrder(description(), function (err, data) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                LiqPayCheckout.init({
+                    data: "Дані...",
+                    signature: "Підпис...",
+                    embedTo: "#liqpay",
+                    mode: "popup" // embed || popup
+                }).on("liqpay.callback", function (data) {
+                    console.log(data.status);
+                    console.log(data);
+                }).on("liqpay.ready", function (data) { // ready
+                }).on("liqpay.close", function (data) { // close
+                });
+                console.log("Order is sent to server");
+            }
+        })
+    }
 });
 
 $('#name').keyup(function () {
@@ -120,7 +142,7 @@ $('#phone').keyup(function () {
 
 function validateName(input) {
     var text = input.val();
-    if (text.length < 2 || !(/^[a-zA-Z]+$/.test(text))) {
+    if (text.length < 2 || !(/^[a-zA-Zа-яА-Я\u0454\u0456\u0404]+$/.test(text))) {
         input.closest('.form-group').addClass('has-error');
         input.closest('.form-group').removeClass('has-success');
         $('#name-error').show();
@@ -156,6 +178,22 @@ function validatePhone(input) {
         input.closest('.form-group').removeClass('has-error');
         $('#ph-error').hide();
     }
+}
+
+// address name and phone
+function isOk() {
+    return ($('#name-form').hasClass('has-success')
+    && $('#phone-form').hasClass('has-success')
+    && $('#address-form').hasClass('has-success'))
+}
+
+function description() {
+    return {
+        pizzas: PizzaCart.getPizzaInCart(),
+        name: $("#name").val(),
+        phone: $("#phone").val(),
+        address: $("#address").val()
+    };
 }
 
 exports.filterPizza = filterPizza;
