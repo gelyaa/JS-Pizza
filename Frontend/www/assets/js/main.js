@@ -363,10 +363,18 @@ function initialize() {
 function geocodeLatLng(latlng, callback) {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'location': latlng}, function (results, status) {
+        var address = $('#address-form');
+        var e = $('#ad-error');
         if (status === google.maps.GeocoderStatus.OK && results[1]) {
             var adress = results[1].formatted_address;
+            address.addClass('has-success');
+            address.removeClass('has-error');
+            e.hide();
             callback(null, adress);
         } else {
+            address.removeClass('has-success');
+            address.addClass('has-error');
+            e.show();
             callback(new Error("Can't find adress"));
         }
     });
@@ -375,10 +383,18 @@ function geocodeLatLng(latlng, callback) {
 function geocodeAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': address}, function (results, status) {
+        var address = $('#address-form');
+        var e = $('#ad-error');
         if (status === google.maps.GeocoderStatus.OK && results[0]) {
             var coordinates = results[0].geometry.location;
+            address.addClass('has-success');
+            address.removeClass('has-error');
+            e.hide();
             callback(null, coordinates);
         } else {
+            address.removeClass('has-success');
+            address.addClass('has-error');
+            e.show();
             callback(new Error("Can't find the adress"));
         }
     });
@@ -564,11 +580,16 @@ function ordersMode(){
     $("#order-btn").attr("disabled", false);
 }
 
+function getTotalPrice(){
+    return parseInt(total.html());
+}
+
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
 exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
+exports.getTotalPrice = getTotalPrice;
 
 exports.PizzaSize = PizzaSize;
 },{"../Templates":3,"./LocalStorage/storage":5}],8:[function(require,module,exports){
@@ -578,7 +599,7 @@ exports.PizzaSize = PizzaSize;
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
 var Pizza_List = require('../Pizza_List');
-var Api = require('../API');
+var API = require('../API');
 
 //HTML елемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
@@ -680,14 +701,15 @@ $("#submit-btn").click(function () {
     validatePhone($('#phone'));
     validateAddress($('#address'));
     if (isOk()) {
-        Api.createOrder(description(), function (err, data) {
+        API.createOrder(description(), function (err, data) {
             if (err) {
                 console.log(err);
+                alert("Tранзакцiя не вдалась!");
             }
             else {
                 LiqPayCheckout.init({
-                    data: "Дані...",
-                    signature: "Підпис...",
+                    data: data.data,
+                    signature: data.signature,
                     embedTo: "#liqpay",
                     mode: "popup" // embed || popup
                 }).on("liqpay.callback", function (data) {
@@ -695,12 +717,24 @@ $("#submit-btn").click(function () {
                     console.log(data);
                 }).on("liqpay.ready", function (data) { // ready
                 }).on("liqpay.close", function (data) { // close
+                    success();
                 });
                 console.log("Order is sent to server");
             }
         })
     }
 });
+
+function success() {
+    $('#name').val("");
+    $('#address').val("");
+    $('#phone').val("");
+    $('#phone-form').hasClass('has-success');
+    $('#address-form').hasClass('has-success');
+    $('#name-form').hasClass('has-success');
+    alert("Tранзакцiя пройшла успiшно!");
+}
+
 
 $('#name').keyup(function () {
     validateName($(this));
@@ -733,17 +767,13 @@ function validateAddress(input) {
         input.closest('.form-group').addClass('has-error');
         input.closest('.form-group').removeClass('has-success');
         $('#ad-error').show();
-    } else {
-        input.closest('.form-group').addClass('has-success');
-        input.closest('.form-group').removeClass('has-error');
-        $('#ad-error').hide();
     }
 }
 
 
 function validatePhone(input) {
     var text = input.val();
-    if (!( text.charAt(0) == 0 && text.length == 10) && !( text.substring(0, 4) == '+380' && text.length == 12)) {
+    if (!( text.charAt(0) == 0 && text.length == 10 && (/^\d+$/.test(text)) ) && !( text.substring(0, 4) == '+380' && text.length == 13 && (/^\d+$/.test(text.substring(5))) )) {
         input.closest('.form-group').addClass('has-error');
         input.closest('.form-group').removeClass('has-success');
         $('#ph-error').show();
@@ -766,7 +796,8 @@ function description() {
         pizzas: PizzaCart.getPizzaInCart(),
         name: $("#name").val(),
         phone: $("#phone").val(),
-        address: $("#address").val()
+        address: $("#address").val(),
+        price: PizzaCart.getTotalPrice()
     };
 }
 

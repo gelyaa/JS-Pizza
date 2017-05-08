@@ -63,10 +63,18 @@ function initialize() {
 function geocodeLatLng(latlng, callback) {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'location': latlng}, function (results, status) {
+        var address = $('#address-form');
+        var e = $('#ad-error');
         if (status === google.maps.GeocoderStatus.OK && results[1]) {
             var adress = results[1].formatted_address;
+            address.addClass('has-success');
+            address.removeClass('has-error');
+            e.hide();
             callback(null, adress);
         } else {
+            address.removeClass('has-success');
+            address.addClass('has-error');
+            e.show();
             callback(new Error("Can't find adress"));
         }
     });
@@ -75,10 +83,18 @@ function geocodeLatLng(latlng, callback) {
 function geocodeAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': address}, function (results, status) {
+        var address = $('#address-form');
+        var e = $('#ad-error');
         if (status === google.maps.GeocoderStatus.OK && results[0]) {
             var coordinates = results[0].geometry.location;
+            address.addClass('has-success');
+            address.removeClass('has-error');
+            e.hide();
             callback(null, coordinates);
         } else {
+            address.removeClass('has-success');
+            address.addClass('has-error');
+            e.show();
             callback(new Error("Can't find the adress"));
         }
     });

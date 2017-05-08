@@ -4,7 +4,7 @@
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
 var Pizza_List = require('../Pizza_List');
-var Api = require('../API');
+var API = require('../API');
 
 //HTML елемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
@@ -106,14 +106,15 @@ $("#submit-btn").click(function () {
     validatePhone($('#phone'));
     validateAddress($('#address'));
     if (isOk()) {
-        Api.createOrder(description(), function (err, data) {
+        API.createOrder(description(), function (err, data) {
             if (err) {
                 console.log(err);
+                alert("Tранзакцiя не вдалась!");
             }
             else {
                 LiqPayCheckout.init({
-                    data: "Дані...",
-                    signature: "Підпис...",
+                    data: data.data,
+                    signature: data.signature,
                     embedTo: "#liqpay",
                     mode: "popup" // embed || popup
                 }).on("liqpay.callback", function (data) {
@@ -121,12 +122,24 @@ $("#submit-btn").click(function () {
                     console.log(data);
                 }).on("liqpay.ready", function (data) { // ready
                 }).on("liqpay.close", function (data) { // close
+                    success();
                 });
                 console.log("Order is sent to server");
             }
         })
     }
 });
+
+function success() {
+    $('#name').val("");
+    $('#address').val("");
+    $('#phone').val("");
+    $('#phone-form').hasClass('has-success');
+    $('#address-form').hasClass('has-success');
+    $('#name-form').hasClass('has-success');
+    alert("Tранзакцiя пройшла успiшно!");
+}
+
 
 $('#name').keyup(function () {
     validateName($(this));
@@ -159,17 +172,13 @@ function validateAddress(input) {
         input.closest('.form-group').addClass('has-error');
         input.closest('.form-group').removeClass('has-success');
         $('#ad-error').show();
-    } else {
-        input.closest('.form-group').addClass('has-success');
-        input.closest('.form-group').removeClass('has-error');
-        $('#ad-error').hide();
     }
 }
 
 
 function validatePhone(input) {
     var text = input.val();
-    if (!( text.charAt(0) == 0 && text.length == 10) && !( text.substring(0, 4) == '+380' && text.length == 12)) {
+    if (!( text.charAt(0) == 0 && text.length == 10 && (/^\d+$/.test(text)) ) && !( text.substring(0, 4) == '+380' && text.length == 13 && (/^\d+$/.test(text.substring(5))) )) {
         input.closest('.form-group').addClass('has-error');
         input.closest('.form-group').removeClass('has-success');
         $('#ph-error').show();
@@ -192,7 +201,8 @@ function description() {
         pizzas: PizzaCart.getPizzaInCart(),
         name: $("#name").val(),
         phone: $("#phone").val(),
-        address: $("#address").val()
+        address: $("#address").val(),
+        price: PizzaCart.getTotalPrice()
     };
 }
 

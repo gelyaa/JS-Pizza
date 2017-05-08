@@ -29,7 +29,7 @@ exports.createOrder = function (req, res) {
         version: 3,
         public_key: LIQPAY_PUBLIC_KEY,
         action: "pay",
-        amount: getAmount(order_info.pizzas),  //price
+        amount: order_info.price,
         currency: "UAH",
         description: getDescription(order_info),
         order_id: Math.random(),
@@ -47,21 +47,15 @@ exports.createOrder = function (req, res) {
 
 };
 
-function getAmount(pizzas) {
-    var res = 0;
-    pizzas.forEach(function (pizza) {
-        res += pizza.price;
-    });
-    return res;
-}
-
 function getDescription(order) {
     var res = "Замовлення піци: " + order.name + "\n" + "Адреса доставки: " + order.address +
         "\n" + "Телефон: " + order.phone + "\n" + "Замовлення: ";
     order.pizzas.forEach(function (pizza) {
-        res += pizza.name + "\n";
+        res += pizza.pizza.title;
+        if (pizza.size == "big_size") res += "(велика)" + "\n";
+        else res += "(маленька)" + "\n";
     });
-    res += "Разом: " + getAmount(order.pizzas);
+    res += "Разом: " + order.price;
     return res;
 }
 

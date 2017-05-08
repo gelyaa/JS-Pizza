@@ -156,10 +156,15 @@ function ordersMode(){
     $("#order-btn").attr("disabled", false);
 }
 
+function getTotalPrice(){
+    return parseInt(total.html());
+}
+
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
 exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
+exports.getTotalPrice = getTotalPrice;
 
 exports.PizzaSize = PizzaSize;
