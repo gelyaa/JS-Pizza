@@ -80,7 +80,7 @@ function geocodeLatLng(latlng, callback) {
             address.removeClass('has-success');
             address.addClass('has-error');
             e.show();
-            callback(new Error("Can't find adress"));
+            callback(new Error("Can't find address"));
         }
     });
 }
@@ -100,7 +100,7 @@ function geocodeAddress(address, callback) {
             address.removeClass('has-success');
             address.addClass('has-error');
             e.show();
-            callback(new Error("Can't find the adress"));
+            callback(new Error("Can't find the address"));
         }
     });
 }
