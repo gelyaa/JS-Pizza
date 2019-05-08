@@ -1,6 +1,6 @@
 # JS-Pizza
 
-lalala this is test
+this is test
 
 
 ## Update 21.05.2016
